@@ -1,4 +1,4 @@
-package com.techindustan.mvpdemo.login;
+package com.techindustan.mvpdemo.ui.login;
 
 /**
  * Created by binod on 10/11/17.
@@ -26,10 +26,12 @@ public class LoginPresenter implements LoginInterface {
 
     @Override
     public void validateAndLogin(String email) {
-        if (validate(email))
+        if (validate(email)) {
             view.showMessage("Success");
-        else
+            view.goToNextScreen();
+        } else {
             view.showMessage("Fail");
+        }
     }
 
     boolean validate(String email) {

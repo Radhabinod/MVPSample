@@ -1,14 +1,14 @@
-package com.techindustan.mvpdemo.login;
+package com.techindustan.mvpdemo.ui.login;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.techindustan.mvpdemo.R;
 import com.techindustan.mvpdemo.base.BaseActivity;
+import com.techindustan.mvpdemo.ui.user.UserActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void goToNextScreen() {
-
+        startActivity(new Intent(this, UserActivity.class));
     }
 
     @Override
