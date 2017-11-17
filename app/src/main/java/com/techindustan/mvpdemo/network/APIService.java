@@ -4,6 +4,8 @@ import com.techindustan.mvpdemo.model.login.Login;
 import com.techindustan.mvpdemo.model.users.User;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -13,8 +15,9 @@ import retrofit2.http.Query;
  */
 
 public interface APIService {
-    @POST("login")
-    Call<Login> getUsers(@Query("device_type") String device_type, @Query("device_token") String device_token, @Query("email") String email);
+    @FormUrlEncoded
+    @POST("auth/login")
+    Call<Login> getUsers(@Field("device_type") String device_type, @Field("device_token") String device_token, @Field("email") String email);
     @POST("logos")
     Call<String> getLogos(@Query("auth")String auth);
     @GET("linkedin")

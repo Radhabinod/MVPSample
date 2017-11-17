@@ -1,7 +1,11 @@
 package com.techindustan.mvpdemo.di.module;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.techindustan.mvpdemo.di.Qualifiers.ApplicationContextQualifier;
+
+import javax.inject.Qualifier;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -21,6 +25,13 @@ public class ApplicationModule {
     @Provides
     @Singleton
     Application provideApplication() {
+        return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    @ApplicationContextQualifier
+    Context provideContext() {
         return mApplication;
     }
 }

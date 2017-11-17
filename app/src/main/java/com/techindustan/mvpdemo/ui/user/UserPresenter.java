@@ -22,16 +22,17 @@ public class UserPresenter implements UserInterface {
     UserPresenter(UserView view, Retrofit retrofit) {
         this.view = view;
         this.retrofit = retrofit;
+        //getUser();
     }
 
     @Override
     public void getUser() {
-        /*Call<Login> user = retrofit.create(APIService.class).getUsers("1", "fJJMDOffAP8:APA91bGd7z2S2f4djeQlO-WrQD70xe92cnvHkKx7yHBBVRGBXDYBSLUZtf5lOx0SLf_gTYMz0GVBDWexE7gX2FU8nXn-g8pBepMHTRy0E4vO7mwGr9SOCRL_V7Fu_dzxX7sGLIhSj8QF", "abc@gmail.com");
+        Call<Login> user = retrofit.create(APIService.class).getUsers("1", "fJJMDOffAP8:APA91bGd7z2S2f4djeQlO-WrQD70xe92cnvHkKx7yHBBVRGBXDYBSLUZtf5lOx0SLf_gTYMz0GVBDWexE7gX2FU8nXn-g8pBepMHTRy0E4vO7mwGr9SOCRL_V7Fu_dzxX7sGLIhSj8QF", "abc@gmail.com");
         user.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 view.showMessage("Success");
-                Log.e("success", response.body().getResponse()+"");
+                Log.e("success", response.body().getResponse().getAuth()+"");
             }
 
             @Override
@@ -39,7 +40,7 @@ public class UserPresenter implements UserInterface {
                 view.showMessage("Fail");
                 Log.e("error", t.getMessage());
             }
-        });*/
+        });
        /* Call<String> auth = retrofit.create(APIService.class).getLogos("33448899Favens99884433");
         auth.enqueue(new Callback<String>() {
             @Override
@@ -52,7 +53,7 @@ public class UserPresenter implements UserInterface {
                 Log.e("success", t.getMessage());
             }
         });*/
-        Call<String> linkedin=retrofit.create(APIService.class).getLinkedinusers();
+        /*Call<String> linkedin=retrofit.create(APIService.class).getLinkedinusers();
         linkedin.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -63,6 +64,6 @@ public class UserPresenter implements UserInterface {
             public void onFailure(Call<String> call, Throwable t) {
                 Log.e("fail", t.getMessage());
             }
-        });
+        });*/
     }
 }

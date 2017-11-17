@@ -7,4 +7,6 @@ package com.techindustan.mvpdemo.ui.login;
 public interface LoginView {
     void goToNextScreen();
     void showMessage(String message);
+    void showProgressDialog();
+    void hideProgressDialog();
 }

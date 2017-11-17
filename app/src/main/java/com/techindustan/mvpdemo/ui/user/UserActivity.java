@@ -2,6 +2,7 @@ package com.techindustan.mvpdemo.ui.user;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.techindustan.mvpdemo.R;
 import com.techindustan.mvpdemo.SampleApplication;
@@ -22,10 +23,11 @@ public class UserActivity extends BaseActivity implements UserView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        ((SampleApplication) getApplication()).getNetComponent().inject(this);
         presenter = new UserPresenter(this, retrofit);
-        presenter.getUser();
+        Log.e("retrofit",retrofit+"");
+
     }
+
 
     @Override
     public void updateList() {
