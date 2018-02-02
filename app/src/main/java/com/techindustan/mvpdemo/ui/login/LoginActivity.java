@@ -2,6 +2,7 @@ package com.techindustan.mvpdemo.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,23 +22,29 @@ import retrofit2.Retrofit;
 
 public class LoginActivity extends BaseActivity implements LoginView {
 
-    LoginPresenter presenter;
+
     @BindView(R.id.button)
     Button button;
     @BindView(R.id.editText)
     EditText etEmail;
+
     @Inject
-    Retrofit retrofit;
+    LoginPresenter<LoginView> presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getActivityComponent().inject(this);
         ButterKnife.bind(this);
-        presenter = new LoginPresenter(this, retrofit);
+        presenter.attachView(this);
+
+        //presenter = new LoginPresenter(this);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("presenter", presenter + "");
                 presenter.validateAndLogin(etEmail.getText().toString());
             }
         });

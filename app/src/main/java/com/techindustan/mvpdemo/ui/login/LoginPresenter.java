@@ -3,6 +3,10 @@ package com.techindustan.mvpdemo.ui.login;
 import android.util.Log;
 import android.util.Patterns;
 
+import com.techindustan.mvpdemo.base.BasePresenter;
+import com.techindustan.mvpdemo.data.DataManager;
+import com.techindustan.mvpdemo.data.listeners.DataListener;
+import com.techindustan.mvpdemo.model.home.HomeResponse;
 import com.techindustan.mvpdemo.model.login.Login;
 import com.techindustan.mvpdemo.network.APIService;
 
@@ -17,14 +21,14 @@ import retrofit2.Retrofit;
  * Created by binod on 10/11/17.
  */
 
-public class LoginPresenter implements LoginInterface {
-    LoginView view;
-    Retrofit retrofit;
+public class LoginPresenter<V extends LoginView> extends BasePresenter<V> implements LoginInterface<V> {
 
-    public LoginPresenter(LoginView view, Retrofit retrofit) {
-        this.view = view;
-        this.retrofit = retrofit;
-        Log.e("retrofit",retrofit+"");
+
+    @Inject
+    DataManager dataManager;
+
+    @Inject
+    public LoginPresenter() {
     }
 
 
@@ -42,10 +46,12 @@ public class LoginPresenter implements LoginInterface {
 
     @Override
     public void validateAndLogin(String email) {
+        Log.e("presenter", getMvpView() + "");
+
         if (validate(email)) {
             login(email);
         } else {
-            view.showMessage("Fail");
+            getMvpView().showMessage("Fail");
         }
     }
 
@@ -54,7 +60,7 @@ public class LoginPresenter implements LoginInterface {
             if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 return true;
             } else {
-                view.showMessage("Invalid Email address");
+                getMvpView().showMessage("Invalid Email address");
                 return false;
             }
         }
@@ -62,23 +68,24 @@ public class LoginPresenter implements LoginInterface {
     }
 
     void login(String email) {
-        view.showProgressDialog();
-        Call<Login> user = retrofit.create(APIService.class).getUsers("1", "fJJMDOffAP8:APA91bGd7z2S2f4djeQlO-WrQD70xe92cnvHkKx7yHBBVRGBXDYBSLUZtf5lOx0SLf_gTYMz0GVBDWexE7gX2FU8nXn-g8pBepMHTRy0E4vO7mwGr9SOCRL_V7Fu_dzxX7sGLIhSj8QF", "abc@gmail.com");
-        user.enqueue(new Callback<Login>() {
+        getMvpView().showProgressDialog();
+        Log.e("dataManger", dataManager + "");
+        dataManager.getHomeDetail(new DataListener() {
             @Override
-            public void onResponse(Call<Login> call, Response<Login> response) {
-                view.showMessage("Success");
-                view.hideProgressDialog();
-                view.goToNextScreen();
-                Log.e("success", response.body().getResponse().getAuth() + "");
+            public void onResponse(HomeResponse response) {
+                getMvpView().hideProgressDialog();
+                Log.e("dataaa", response.getStatus() + "");
             }
 
             @Override
-            public void onFailure(Call<Login> call, Throwable t) {
-                view.showMessage("Fail");
-                view.hideProgressDialog();
-                Log.e("error", t.getMessage());
+            public void onError(String error) {
+                getMvpView().hideProgressDialog();
             }
         });
+    }
+
+
+    void homeApi() {
+
     }
 }

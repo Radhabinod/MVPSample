@@ -5,9 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.techindustan.mvpdemo.SampleApplication;
+import com.techindustan.mvpdemo.di.component.ActivityComponent;
+import com.techindustan.mvpdemo.di.component.DaggerActivityComponent;
+import com.techindustan.mvpdemo.di.module.ActivityModule;
+
 public class BaseActivity extends AppCompatActivity implements BaseActivityCallback {
     private ProgressDialog progress;
-
+    ActivityComponent activityComponent;
+    public ActivityComponent getActivityComponent() {
+        if (activityComponent == null) {
+            activityComponent = DaggerActivityComponent.builder().sampleAppComponent(((SampleApplication) (this.getApplicationContext())).getNetComponent()).activityModule(new ActivityModule(this)).build();
+        }
+        return activityComponent;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,5 +1,6 @@
 package com.techindustan.mvpdemo.di.component;
 
+import com.techindustan.mvpdemo.data.DataManager;
 import com.techindustan.mvpdemo.di.module.ApplicationModule;
 import com.techindustan.mvpdemo.di.module.NetModule;
 import com.techindustan.mvpdemo.di.module.SampleAppServiceModule;
@@ -18,4 +19,10 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ApplicationModule.class, NetModule.class, SampleAppServiceModule.class})
 public interface SampleAppComponent {
+
+
+    void inject(SampleAppServiceModule app);
+    DataManager manager();
+
+
 }
